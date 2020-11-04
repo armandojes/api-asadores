@@ -1,11 +1,17 @@
 import { database, snapShotParser } from 'core/index'
 import firebase from 'firebase-admin'
+import { log } from 'firebase-functions/lib/logger'
 
 const webhook = async (request, response) => {
-  const documentPath = request.body.transaction.order_id
+  var documentPath = null
+  log('request', request.body)
 
-  if (request.body.type !== 'charge.succeeded') return response.success()
-  console.log('request', request.body)
+  try {
+    documentPath = request.body.transaction.order_id
+    if (request.body.type !== 'charge.succeeded') return response.success()
+  } catch (error) {
+    return response.success()
+  }
 
   // get document date
   try {
