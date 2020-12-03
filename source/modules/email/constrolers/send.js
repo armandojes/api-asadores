@@ -11,8 +11,8 @@ const send = async (request, response) => {
   const transporter = nodemailer.createTransport('smtp://ventas@asadoresdelnorte.com:Asa23*mty@s77m-gqnv.accessdomain.com:587')
 
   pdf.create(html, {
-    height: '14in',
-    width: '12in',
+    height: '30in',
+    width: '15in',
     phantomArgs: ['--local-url-access=false']
   }).toBuffer(async (err, buffer) => {
     if (err) {
@@ -32,7 +32,7 @@ const send = async (request, response) => {
         html: html,
         attachments: [
           {
-            filename: 'reibo.pdf',
+            filename: 'recibo.pdf',
             content: buffer,
             contentType: 'application/pdf'
           }
